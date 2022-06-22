@@ -17,6 +17,34 @@
       "title": "Overall statistics",
       "reports": [
         {
+          "title": "Select",
+          "query": "MATCH (n:`Address`) \nWHERE toLower(toString(n.`id`)) CONTAINS toLower($input) \nRETURN DISTINCT n.`id` as value LIMIT 5",
+          "width": "6",
+          "type": "select",
+          "height": "1.25",
+          "selection": {},
+          "settings": {
+            "type": "Node Property",
+            "entityType": "Address",
+            "propertyType": "id",
+            "parameterName": "neodash_address_id"
+          }
+        },
+        {
+          "title": "Select",
+          "query": "MATCH (n:`Address`) \nWHERE toLower(toString(n.`id`)) CONTAINS toLower($input) \nRETURN DISTINCT n.`id` as value LIMIT 5",
+          "width": "6",
+          "type": "select",
+          "height": "1.25",
+          "selection": {},
+          "settings": {
+            "type": "Node Property",
+            "entityType": "Network",
+            "propertyType": "id",
+            "parameterName": "neodash_network_id"
+          }
+        },
+        {
           "title": "Total count of transactions",
           "query": "MATCH (t:Transaction)\nRETURN count(*) AS transactions\n\n\n",
           "width": "3",
@@ -50,6 +78,7 @@
           },
           "refreshRate": 300
         },
+
         {
           "title": "Transactions count for the last 24 hours",
           "query": "MATCH (t:Transaction)\nWHERE datetime() - duration({hours:24}) <= t.timestamp\nWITH t.timestamp.year AS year, t.timestamp.day AS day, t.timestamp.month AS month, t.timestamp.hour AS hour, count(*) AS y\nRETURN datetime({year:year, month:month, day:day, hour:hour}) AS x, y\n\n\n",

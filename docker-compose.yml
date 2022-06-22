@@ -28,16 +28,7 @@ services:
     depends_on:
       - neo4j
   neodash:
-    build:
-      context: https://github.com/nielsdejong/neodash.git#master
-      args:
-        - standalone=true
-        - standaloneProtocol=neo4j
-        - standaloneHost=localhost
-        - standalonePort=7687
-        - standaloneDatabase=neo4j
-        - standaloneDashboardName=Bitcoin
-        - standaloneDashboardDatabase=neo4j
+    image: nielsdejong/neodash
     restart: always
     hostname: neodash
     container_name: neodash
@@ -46,3 +37,8 @@ services:
       - 80:5005
     depends_on:
       - neo4j
+  redis:
+    image: redis:6.2-alpine
+    ports:
+      - 6379:6379
+    command: redis-server --save 60 1 --requirepass test --loglevel warning

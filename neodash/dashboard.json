@@ -261,6 +261,58 @@
           "settings": {}
         }
       ]
+    },
+    {
+      "title": "Visualize specific address",
+      "reports": [
+        {
+          "title": "",
+          "query": "MATCH (n:`Address`) \nWHERE toLower(toString(n.`id`)) CONTAINS toLower($input) \nRETURN DISTINCT n.`id` as value LIMIT 5",
+          "width": "4",
+          "type": "select",
+          "height": "1.25",
+          "selection": {},
+          "settings": {
+            "type": "Node Property",
+            "entityType": "Address",
+            "propertyType": "id",
+            "parameterName": "neodash_address_id"
+          }
+        },
+        {
+          "title": "Graph visualization",
+          "query": "MATCH (a:Address)\nWHERE a.id = $neodash_address_id\nMATCH p=(t)-[:SENT]-()\nRETURN p\n\n\n",
+          "width": "12",
+          "type": "graph",
+          "height": "6",
+          "selection": {
+            "Transaction": "(label)",
+            "Address": "id"
+          },
+          "settings": {
+            "nodePositions": {},
+            "hideSelections": true
+          }
+        },
+        {
+          "title": "Inputs of the Address",
+          "query": "MATCH (a:Address)<-[r:SENT]-(a)\nWHERE a.id = $neodash_address_id\nRETURN a.id AS address, r.valueUSD AS valueUSD, r.valueBTC AS valueBTC\nORDER BY valueUSD DESC\n\n\n\n\n",
+          "width": "6",
+          "type": "table",
+          "height": "6",
+          "selection": {},
+          "settings": {}
+        },
+        {
+          "title": "Outputs of the Address",
+          "query": "MATCH (a:Address)-[r:SENT]->(a)\nWHERE a.id = $neodash_address_id\nRETURN a.id AS address, r.valueUSD AS valueUSD, r.valueBTC AS valueBTC\nORDER BY valueUSD DESC\n\n\n\n\n\n\n\n",
+          "width": "6",
+          "type": "table",
+          "height": "6",
+          "selection": {},
+          "settings": {}
+        }
+      ]
     }
   ]
 }

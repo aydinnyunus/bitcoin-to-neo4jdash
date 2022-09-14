@@ -4,7 +4,7 @@ go 1.17
 
 require (
 	github.com/PuerkitoBio/goquery v1.8.0
-	github.com/aydinnyunus/blockchain v0.0.0-20220611213140-185b85024f74
+	github.com/aydinnyunus/blockchain latest
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/gorilla/websocket v1.5.0
 	github.com/neo4j/neo4j-go-driver/v4 v4.4.3
